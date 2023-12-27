@@ -44,7 +44,7 @@ pipeline{
                                 dir ('Terraform/EC2') {
                                     echo 'Creating API SERVER'
                                     def publicsubnet = sh(returnStdout:true, script: "aws ec2 describe-subnets --region ${params.AWS_REGION} --filters Name=tag:Name,Values='FUND-${params.AWS_ENV}-PublicSubnet1a' --query 'Subnets[0].SubnetId' --output text").trim()
-                                    def eip_id = sh (returnStdout:true, script:"aws ec2 describe-addresses --filters Name=tag:Name,Values='FUND-${params.AWS_ENV}-APIServer' --query 'Addresses[0].AssociationId' --output text").trim()
+                                    def eip_id = sh (returnStdout:true, script:"aws ec2 describe-addresses --filters Name=tag:Name,Values='FUND-${params.AWS_ENV}-APIServer' --query 'Addresses[0].AllocationId' --output text").trim()
                                     // existing pem, eip is used
                                     sh 'terraform init'
                                     sh "terraform plan -var='ec2_name=FUND-${params.AWS_ENV}-APIServer' \
@@ -106,7 +106,7 @@ pipeline{
                                 dir ('Terraform/EC2') {
                                     echo 'Creating API SERVER'
                                     def publicsubnet = sh(returnStdout:true, script: "aws ec2 describe-subnets --region ${params.AWS_REGION} --filters Name=tag:Name,Values='FUND-${params.AWS_ENV}-PublicSubnet1a' --query 'Subnets[0].SubnetId' --output text").trim()
-                                    def eip_id = sh (returnStdout:true, script:"aws ec2 describe-addresses --filters Name=tag:Name,Values='FUND-${params.AWS_ENV}-APIServer' --query 'Addresses[0].AssociationId' --output text").trim()
+                                    def eip_id = sh (returnStdout:true, script:"aws ec2 describe-addresses --filters Name=tag:Name,Values='FUND-${params.AWS_ENV}-APIServer' --query 'Addresses[0].AllocationId' --output text").trim()
                                     // existing pem, eip is used
                                     sh 'terraform init'
                                     sh "terraform plan -var='ec2_name=FUND-${params.AWS_ENV}-APIServer' \
