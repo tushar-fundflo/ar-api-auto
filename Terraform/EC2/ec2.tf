@@ -16,6 +16,7 @@ resource "aws_instance" "api_server" {
     sudo apt install -y nodejs
     sudo npm install pm2 -g
     sudo apt install apache2 -y
+    git config --global credential.helper store
   EOF
   # END
   vpc_security_group_ids = [aws_security_group.api_server_sg.id]
@@ -50,6 +51,13 @@ resource "aws_security_group" "api_server_sg" {
     to_port     = 443
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0 # Allow traffic from all ports
+    to_port     = 0 # Allow traffic to all ports
+    protocol    = "-1" # Allow all protocols (TCP, UDP, ICMP)
+    cidr_blocks = ["0.0.0.0/0"] # Allow outbound traffic to anywhere
   }
 
   tags = {
