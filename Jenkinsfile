@@ -12,7 +12,7 @@ pipeline{
                     if(params.AWS_ENV=='DEV'){
                         withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId:params.AWS_ENV]]){
                             def vpcExists = sh(returnStdout: true, script: "aws ec2 describe-vpcs --region ${params.AWS_REGION} --filters Name=tag:Name,Values=FUND-${params.AWS_ENV}-VPC --query 'Vpcs[0].VpcId' --output text").trim()
-                            def instanceExists = sh(returnStdout: true, script: "aws ec2 describe-instances --region ap-south-1 --filter Name=tag:Name,Values=TEST-API-SERVER --query 'Reservations[*].Instances[*].InstanceId' --output text").trim()
+                            def instanceExists = sh(returnStdout: true, script: "aws ec2 describe-instances --region ap-south-1 --filter Name=tag:Name,Values=TEST-API-SERVER --query 'Reservations[0].Instances[0].InstanceId' --output text").trim()
                             def instanceRoleExists = sh(returnStdout:true, script: "aws iam list-instance-profiles --query 'InstanceProfiles[?InstanceProfileName==`test-ec2-role`] | [0].Arn' --output text").trim()
                 
                             if(vpcExists!='None'){
@@ -44,8 +44,8 @@ pipeline{
                                 echo 'Instance Not Exists'
                                 dir ('Terraform/EC2') {
                                     echo 'Creating API SERVER'
-                                    def publicsubnet = sh(returnStdout:true, script: "aws ec2 describe-subnets --region ${params.AWS_REGION} --filters Name=tag:Name,Values='FUND-${params.AWS_ENV}-PublicSubnet1a' --query 'Subnets[*].SubnetId' --output text").trim()
-                                    def eip_id = sh (returnStdout:true, script:"aws ec2 describe-addresses --filters Name=tag:Name,Values='FUND-${params.AWS_ENV}-APIServer' --query 'Addresses[*].AssociationId' --output text").trim()
+                                    def publicsubnet = sh(returnStdout:true, script: "aws ec2 describe-subnets --region ${params.AWS_REGION} --filters Name=tag:Name,Values='FUND-${params.AWS_ENV}-PublicSubnet1a' --query 'Subnets[0].SubnetId' --output text").trim()
+                                    def eip_id = sh (returnStdout:true, script:"aws ec2 describe-addresses --filters Name=tag:Name,Values='FUND-${params.AWS_ENV}-APIServer' --query 'Addresses[0].AssociationId' --output text").trim()
                                     // existing pem, eip is used
                                     sh 'terraform init'
                                     sh "terraform plan -var='ec2_name=FUND-${params.AWS_ENV}-APIServer' \
@@ -74,8 +74,8 @@ pipeline{
                     }else if(params.AWS_ENV=='KMR'){
                         withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId:params.AWS_ENV]]){
                             def vpcExists = sh(returnStdout: true, script: "aws ec2 describe-vpcs --region ${params.AWS_REGION} --filters Name=tag:Name,Values=FUND-${params.AWS_ENV}-VPC --query 'Vpcs[0].VpcId' --output text").trim()
-                            def instanceExists = sh(returnStdout: true, script: "aws ec2 describe-instances --region ap-south-1 --filter Name=tag:Name,Values=TEST-API-SERVER --query 'Reservations[*].Instances[*].InstanceId' --output text").trim()
-                            def instanceRoleExists = sh(returnStdout:true, script: "aws iam list-instance-profiles --query 'InstanceProfiles[?InstanceProfileName==`test-ec2-role`] | [0].Arn' --output text").trim()
+                            def instanceExists = sh(returnStdout: true, script: "aws ec2 describe-instances --region ap-south-1 --filter Name=tag:Name,Values=TEST-API-SERVER --query 'Reservations[0].Instances[0].InstanceId' --output text").trim()
+                            def instanceRoleExists = sh(returnStdout:true, script: "aws iam list-instance-profiles --query 'InstanceProfiles[?InstanceProfileName=="FUND-${params.AWS_ENV}-APIServer-EC2InstanceProfile"] | [0].Arn' --output text").trim()
                 
                             if(vpcExists!='None'){
                                 echo 'Virtual Private Cloud Exists'
@@ -106,8 +106,8 @@ pipeline{
                                 echo 'Instance Not Exists'
                                 dir ('Terraform/EC2') {
                                     echo 'Creating API SERVER'
-                                    def publicsubnet = sh(returnStdout:true, script: "aws ec2 describe-subnets --region ${params.AWS_REGION} --filters Name=tag:Name,Values='FUND-${params.AWS_ENV}-PublicSubnet1a' --query 'Subnets[*].SubnetId' --output text").trim()
-                                    def eip_id = sh (returnStdout:true, script:"aws ec2 describe-addresses --filters Name=tag:Name,Values='FUND-${params.AWS_ENV}-APIServer' --query 'Addresses[*].AssociationId' --output text").trim()
+                                    def publicsubnet = sh(returnStdout:true, script: "aws ec2 describe-subnets --region ${params.AWS_REGION} --filters Name=tag:Name,Values='FUND-${params.AWS_ENV}-PublicSubnet1a' --query 'Subnets[0].SubnetId' --output text").trim()
+                                    def eip_id = sh (returnStdout:true, script:"aws ec2 describe-addresses --filters Name=tag:Name,Values='FUND-${params.AWS_ENV}-APIServer' --query 'Addresses[0].AssociationId' --output text").trim()
                                     // existing pem, eip is used
                                     sh 'terraform init'
                                     sh "terraform plan -var='ec2_name=FUND-${params.AWS_ENV}-APIServer' \
