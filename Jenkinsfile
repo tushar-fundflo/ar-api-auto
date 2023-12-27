@@ -52,8 +52,8 @@ pipeline{
                                     -var='ec2_type=t2.micro' \
                                     -var='key_name=FUND-${params.AWS_ENV}-APIServer' \
                                     -var='ec2_subnet_id=${publicsubnet}' \
-                                    -var='instance_profile='FUND-${params.AWS_ENV}-APIServer-EC2InstanceProfile' \
-                                    -var='security_group_name='FUND-${params.AWS_ENV}-APIServer-SecurityGroup' \
+                                    -var='instance_profile=FUND-${params.AWS_ENV}-APIServer-EC2InstanceProfile' \
+                                    -var='security_group_name=FUND-${params.AWS_ENV}-APIServer-SecurityGroup' \
                                     -var='vpc_id=${vpcExists}' \
                                     -var='allocation_id=${eip_id}'"
                                     sh "terraform apply --auto-approve -var='ec2_name=FUND-${params.AWS_ENV}-APIServer' \
@@ -61,8 +61,8 @@ pipeline{
                                     -var='ec2_type=t2.micro' \
                                     -var='key_name=FUND-${params.AWS_ENV}-APIServer' \
                                     -var='ec2_subnet_id=${publicsubnet}' \
-                                    -var='instance_profile='FUND-${params.AWS_ENV}-APIServer-EC2InstanceProfile' \
-                                    -var='security_group_name='FUND-${params.AWS_ENV}-APIServer-SecurityGroup' \
+                                    -var='instance_profile=FUND-${params.AWS_ENV}-APIServer-EC2InstanceProfile' \
+                                    -var='security_group_name=FUND-${params.AWS_ENV}-APIServer-SecurityGroup' \
                                     -var='vpc_id=${vpcExists}' \
                                     -var='allocation_id=${eip_id}'"
                                 }
@@ -114,8 +114,8 @@ pipeline{
                                     -var='ec2_type=t2.micro' \
                                     -var='key_name=FUND-${params.AWS_ENV}-APIServer' \
                                     -var='ec2_subnet_id=${publicsubnet}' \
-                                    -var='instance_profile='FUND-${params.AWS_ENV}-APIServer-EC2InstanceProfile' \
-                                    -var='security_group_name='FUND-${params.AWS_ENV}-APIServer-SecurityGroup' \
+                                    -var='instance_profile=FUND-${params.AWS_ENV}-APIServer-EC2InstanceProfile' \
+                                    -var='security_group_name=FUND-${params.AWS_ENV}-APIServer-SecurityGroup' \
                                     -var='vpc_id=${vpcExists}' \
                                     -var='allocation_id=${eip_id}'"
                                     sh "terraform apply --auto-approve -var='ec2_name=FUND-${params.AWS_ENV}-APIServer' \
@@ -123,8 +123,8 @@ pipeline{
                                     -var='ec2_type=t2.micro' \
                                     -var='key_name=FUND-${params.AWS_ENV}-APIServer' \
                                     -var='ec2_subnet_id=${publicsubnet}' \
-                                    -var='instance_profile='FUND-${params.AWS_ENV}-APIServer-EC2InstanceProfile' \
-                                    -var='security_group_name='FUND-${params.AWS_ENV}-APIServer-SecurityGroup' \
+                                    -var='instance_profile=FUND-${params.AWS_ENV}-APIServer-EC2InstanceProfile' \
+                                    -var='security_group_name=FUND-${params.AWS_ENV}-APIServer-SecurityGroup' \
                                     -var='vpc_id=${vpcExists}' \
                                     -var='allocation_id=${eip_id}'"
                                 }
