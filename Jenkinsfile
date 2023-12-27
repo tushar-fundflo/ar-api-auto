@@ -55,7 +55,7 @@ pipeline{
                                     -var='instance_profile='FUND-${params.AWS_ENV}-APIServer-EC2InstanceProfile' \
                                     -var='security_group_name='FUND-${params.AWS_ENV}-APIServer-SecurityGroup' \
                                     -var='vpc_id=${vpcExists}' \
-                                    -var='allocation_id=${eip_id}"
+                                    -var='allocation_id=${eip_id}'"
                                     sh "terraform apply -var='ec2_name=FUND-${params.AWS_ENV}-APIServer' \
                                     -var='ec2_ami=ami-03f4878755434977f' \
                                     -var='ec2_type=t2.micro' \
@@ -64,7 +64,7 @@ pipeline{
                                     -var='instance_profile='FUND-${params.AWS_ENV}-APIServer-EC2InstanceProfile' \
                                     -var='security_group_name='FUND-${params.AWS_ENV}-APIServer-SecurityGroup' \
                                     -var='vpc_id=${vpcExists}' \
-                                    -var='allocation_id=${eip_id}"
+                                    -var='allocation_id=${eip_id}'"
                                 }
                                 
                             }
@@ -117,7 +117,7 @@ pipeline{
                                     -var='instance_profile='FUND-${params.AWS_ENV}-APIServer-EC2InstanceProfile' \
                                     -var='security_group_name='FUND-${params.AWS_ENV}-APIServer-SecurityGroup' \
                                     -var='vpc_id=${vpcExists}' \
-                                    -var='allocation_id=${eip_id}"
+                                    -var='allocation_id=${eip_id}'"
                                     sh "terraform apply -var='ec2_name=FUND-${params.AWS_ENV}-APIServer' \
                                     -var='ec2_ami=ami-03f4878755434977f' \
                                     -var='ec2_type=t2.micro' \
@@ -126,7 +126,7 @@ pipeline{
                                     -var='instance_profile='FUND-${params.AWS_ENV}-APIServer-EC2InstanceProfile' \
                                     -var='security_group_name='FUND-${params.AWS_ENV}-APIServer-SecurityGroup' \
                                     -var='vpc_id=${vpcExists}' \
-                                    -var='allocation_id=${eip_id}"
+                                    -var='allocation_id=${eip_id}'"
                                 }
                                 
                             }
