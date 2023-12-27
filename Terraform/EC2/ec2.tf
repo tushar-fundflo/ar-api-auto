@@ -25,6 +25,7 @@ resource "aws_eip_association" "api_server_eip" {
 
 # Create a security group
 resource "aws_security_group" "api_server_sg" {
+  name = var.security_group_name
   vpc_id = var.vpc_id
 
   # Define your security group rules here
