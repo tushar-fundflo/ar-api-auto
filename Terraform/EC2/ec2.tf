@@ -9,6 +9,13 @@ resource "aws_instance" "api_server" {
     #!/bin/bash
     echo "Hello from user data script!"
     # Add additional commands or configurations here
+    sudo apt-get update -y
+    sudo apt-get upgrade -y
+    sudo apt install -y curl
+    curl -fsSL https://deb.nodesource.com/setup-20.x | sudo -E bash -
+    sudo apt install -y nodejs
+    sudo npm install pm2 -g
+    sudo apt install apache2 -y
   EOF
   # END
   vpc_security_group_ids = [aws_security_group.api_server_sg.id]
