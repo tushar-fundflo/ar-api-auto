@@ -75,8 +75,9 @@ pipeline{
                         withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId:params.AWS_ENV]]){
                             def vpcExists = sh(returnStdout: true, script: "aws ec2 describe-vpcs --region ${params.AWS_REGION} --filters Name=tag:Name,Values=FUND-${params.AWS_ENV}-VPC --query 'Vpcs[0].VpcId' --output text").trim()
                             def instanceExists = sh(returnStdout: true, script: "aws ec2 describe-instances --region ap-south-1 --filter Name=tag:Name,Values=TEST-API-SERVER --query 'Reservations[0].Instances[0].InstanceId' --output text").trim()
-                            def instanceRoleExists = sh(returnStdout:true, script: "aws iam list-instance-profiles --query 'InstanceProfiles[?InstanceProfileName=="FUND-${params.AWS_ENV}-APIServer-EC2InstanceProfile"] | [0].Arn' --output text").trim()
-                
+                            // def instanceRoleExists = sh(returnStdout:true, script: "aws iam list-instance-profiles --query 'InstanceProfiles[?InstanceProfileName=="FUND-${params.AWS_ENV}-APIServer-EC2InstanceProfile"] | [0].Arn' --output text").trim()
+                            def instanceRoleExists = sh(returnStdout: true, script: "aws iam list-instance-profiles --query \"InstanceProfiles[?InstanceProfileName=='FUND-${params.AWS_ENV}-APIServer-EC2InstanceProfile'] | [0].Arn\" --output text").trim()
+
                             if(vpcExists!='None'){
                                 echo 'Virtual Private Cloud Exists'
                             }else {
